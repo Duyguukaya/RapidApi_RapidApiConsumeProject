@@ -1,0 +1,142 @@
+﻿@model UpdateViewModel
+@{
+    ViewData["Title"] = "Personel Güncelle";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<style>
+    .staff-card {
+        padding: 10px;
+        background: transparent;
+    }
+
+    .custom-group {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+        .custom-group i {
+            position: absolute;
+            left: 15px;
+            z-index: 10;
+            color: #ffb822 !important; /* Güncelleme sayfası için uyarı/turuncu tonu */
+            font-family: "Font Awesome 6 Free" !important;
+            font-weight: 900 !important;
+            font-style: normal !important;
+        }
+
+    .custom-control {
+        width: 100% !important;
+        height: 45px !important;
+        padding: 10px 15px 10px 45px !important;
+        border: 1px solid #e7e7e7 !important;
+        border-radius: 5px !important;
+        background-color: #fff !important;
+        color: #495057 !important;
+        outline: none !important;
+        font-size: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+        .custom-control:focus {
+            border-color: #ffb822 !important;
+            box-shadow: 0 0 5px rgba(255, 184, 34, 0.2) !important;
+        }
+
+    .label-title {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .btn-update {
+        background: #ffb822;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+        .btn-update:hover {
+            background: #e6a51d;
+            box-shadow: 0 4px 12px rgba(255, 184, 34, 0.3);
+        }
+</style>
+
+<div class="staff-card">
+    <div class="mb-4">
+        <h4 class="card-title" style="color: #444; font-weight: 700;">
+            <i class="fas fa-user-edit" style="margin-right: 8px; color: #ffb822 !important; font-family: 'Font Awesome 6 Free' !important; font-weight: 900 !important;"></i>
+            Personel Bilgilerini Güncelle
+        </h4>
+        <hr />
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="StaffId" />
+        <input type="hidden" asp-for="Image" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <label class="label-title">Personel Adı</label>
+                <div class="custom-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" asp-for="Name" class="custom-control" placeholder="Ad Soyad..." required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="label-title">Personel Ünvanı</label>
+                <div class="custom-group">
+                    <i class="fas fa-briefcase"></i>
+                    <input type="text" asp-for="Title" class="custom-control" placeholder="Örn: Kat Şefi" required>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 25px 0 15px 0;">
+            <h6 style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Sosyal Medya Bağlantıları</h6>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="custom-group">
+                    <i class="fab fa-instagram" style="color: #e4405f !important; font-family: 'Font Awesome 6 Brands' !important; font-weight: 400 !important;"></i>
+                    <input type="text" asp-for="SocialMedia1" class="custom-control" placeholder="Instagram">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="custom-group">
+                    <i class="fab fa-linkedin" style="color: #0077b5 !important; font-family: 'Font Awesome 6 Brands' !important; font-weight: 400 !important;"></i>
+                    <input type="text" asp-for="SocialMedia2" class="custom-control" placeholder="LinkedIn">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="custom-group">
+                    <i class="fab fa-twitter" style="color: #1da1f2 !important; font-family: 'Font Awesome 6 Brands' !important; font-weight: 400 !important;"></i>
+                    <input type="text" asp-for="SocialMedia3" class="custom-control" placeholder="Twitter / X">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5 d-flex justify-content-between align-items-center">
+            <a href="/Staff/Index" style="text-decoration: none; color: #888;">
+                <i class="fas fa-arrow-left" style="font-family: 'Font Awesome 6 Free' !important; font-weight: 900 !important;"></i> Listeye Dön
+            </a>
+            <button type="submit" class="btn-update">
+                <i class="fas fa-sync-alt" style="color: white !important; font-family: 'Font Awesome 6 Free' !important; font-weight: 900 !important; margin-right: 5px;"></i> Değişiklikleri Kaydet
+            </button>
+        </div>
+    </form>
+</div>
