@@ -1,8 +1,193 @@
-﻿
+﻿@model List<StaffViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Personel Listesi";
     Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+
+    var softColors = new string[] {
+        "badge-soft-primary",   
+        "badge-soft-success",   
+        "badge-soft-danger",    
+        "badge-soft-warning",   
+        "badge-soft-info"      
+    };
+    int counter = 0; 
 }
 
-<h1>Index</h1>
+<div class="container-fluid mt-4">
+    <div class="card shadow border-0" style="border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #f2f2f2;">
+            <h5 class="m-0" style="color: #2d3436; font-weight: 800; font-size: 1.25rem;">Personel Yönetimi</h5>
+            <a href="/Staff/AddStaff/" class="btn btn-dark btn-sm px-4" style="border-radius: 10px; background-color: #2d3436; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <i class="fas fa-plus me-2"></i>Yeni Personel Ekle
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead style="background-color: #fcfcfc;">
+                        <tr>
+                            <th style="padding: 18px 15px; color: #b2bec3; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">ID</th>
+                            <th style="padding: 18px 15px; color: #636e72; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Personel Bilgisi</th>
+                            <th style="padding: 18px 15px; color: #636e72; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Ünvan</th>
+                            <th style="padding: 18px 15px; color: #636e72; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;" class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string titleClass = softColors[counter % 5];
+                            counter++;
 
+                            <tr>
+                                <td style="padding: 18px 15px; color: #b2bec3; font-weight: 600;">#@item.StaffId</td>
+                                <td style="padding: 18px 15px;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-gradient" style="margin-right: 15px;">
+                                            @item.Name.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <div>
+                                            <span style="font-weight: 700; color: #2d3436; font-size: 15px; display: block;">@item.Name</span>
+                                            <small style="color: #b2bec3;">Aktif Personel</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="padding: 18px 15px;">
+                                    <span class="badge-soft @titleClass">
+                                        @item.Title
+                                    </span>
+                                </td>
+                                <td style="padding: 18px 15px;" class="text-center">
+                                    <div class="btn-group-action">
+                                        <a href="/Staff/UpdateStaff/@item.StaffId" class="btn btn-action btn-edit" title="Düzenle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/Staff/DetailsStaff/@item.StaffId" class="btn btn-action btn-details" title="Detay">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                        <a href="/Staff/DeleteStaff/@item.StaffId" class="btn btn-action btn-delete" title="Sil">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<style>
+    .badge-soft {
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-block;
+        min-width: 140px;
+        text-align: center;
+        letter-spacing: 0.3px;
+    }
+
+    .badge-soft-primary {
+        background-color: #e7f1ff;
+        color: #007bff;
+    }
+
+    .badge-soft-success {
+        background-color: #e1f7ed;
+        color: #198754;
+    }
+
+    .badge-soft-danger {
+        background-color: #ffebee;
+        color: #dc3545;
+    }
+
+    .badge-soft-warning {
+        background-color: #fff3cd;
+        color: #ffc107;
+    }
+
+    .badge-soft-info {
+        background-color: #e0f7fa;
+        color: #0dcaf0;
+    }
+
+    /* Profil Avatarı */
+    .avatar-gradient {
+        width: 44px;
+        height: 44px;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+        box-shadow: 0 4px 8px rgba(37, 117, 252, 0.2);
+    }
+
+    /* İşlem Butonları */
+    .btn-group-action {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-action {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        font-size: 14px;
+    }
+
+    .btn-edit {
+        background-color: #f0fff4;
+        color: #198754;
+        border-color: #c3e6cb;
+    }
+
+        .btn-edit:hover {
+            background-color: #198754;
+            color: white;
+        }
+
+    .btn-details {
+        background-color: #e7f1ff;
+        color: #007bff;
+        border-color: #b8daff;
+    }
+
+        .btn-details:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+    .btn-delete {
+        background-color: #ffebee;
+        color: #dc3545;
+        border-color: #f5c6cb;
+    }
+
+        .btn-delete:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #fcfcfc !important;
+        transform: scale(1.002); 
+        transition: 0.2s;
+    }
+</style>
